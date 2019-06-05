@@ -1,13 +1,17 @@
 package blog.services;
 
 import blog.models.User;
-import org.springframework.stereotype.Service;
+import blog.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Objects;
 
-@Service
-public class UserServiceStubImpl implements UserService {
+public class UserServiceJpaImpl implements UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public boolean authenticate(String username, String password) {
         //Provide a sample password check: username == password
@@ -16,27 +20,26 @@ public class UserServiceStubImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        return null;
+        return this.userRepository.findAll();
     }
 
     @Override
     public User findById(Long id) {
-        return null;
+        return this.userRepository.findOne(id);
     }
 
     @Override
     public User create(User user) {
-        return null;
+        return this.userRepository.save(user);
     }
 
     @Override
     public User edit(User user) {
-        return null;
+        return this.userRepository.save(user);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        this.userRepository.delete(id);
     }
-
 }
